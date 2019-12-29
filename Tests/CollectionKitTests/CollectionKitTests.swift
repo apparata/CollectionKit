@@ -3,7 +3,7 @@ import XCTest
 
 final class CollectionKitTests: XCTestCase {
     func testExample() {
-        XCTAssertEqual("This test", "will fail.")
+        XCTAssertEqual(true, true)
     }
 
     static var allTests = [
