@@ -40,4 +40,16 @@ public extension Sequence {
     func dictionary<Key: Hashable>(keyedBy keyPath: KeyPath<Element, Key>) -> [Key: Element] {
         reduce(into: [:]) { $0[$1[keyPath: keyPath]] = $1 }
     }
+    
+    func min<T: Comparable>(by keyPath: KeyPath<Element, T>) -> Element? {
+        self.min(by: { a, b in
+            return a[keyPath: keyPath] < b[keyPath: keyPath]
+        })
+    }
+    
+    func max<T: Comparable>(by keyPath: KeyPath<Element, T>) -> Element? {
+        self.max(by: { a, b in
+            return a[keyPath: keyPath] > b[keyPath: keyPath]
+        })
+    }
 }
