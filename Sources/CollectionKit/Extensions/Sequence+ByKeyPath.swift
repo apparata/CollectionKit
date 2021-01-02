@@ -52,4 +52,16 @@ public extension Sequence {
             return a[keyPath: keyPath] > b[keyPath: keyPath]
         })
     }
+    
+    func allAreTrue(_ keyPath: KeyPath<Element, Bool>) -> Bool {
+        allSatisfy { $0[keyPath: keyPath] }
+    }
+
+    func anyIsTrue(_ keyPath: KeyPath<Element, Bool>) -> Bool {
+        contains { $0[keyPath: keyPath] }
+    }
+    
+    func noneAreTrue(_ keyPath: KeyPath<Element, Bool>) -> Bool {
+        allSatisfy { $0[keyPath: keyPath] == false }
+    }
 }
