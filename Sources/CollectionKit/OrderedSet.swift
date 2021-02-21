@@ -49,8 +49,29 @@ public struct OrderedSet<Element: Hashable>: Equatable, Collection {
         }
         return wasInserted
     }
+
+    /// Removes element based on equality.
+    @discardableResult
+    public mutating func remove(_ element: Element) -> Element? {
+        elements.removeFirst { element == $0 }
+        return set.remove(element)
+    }
     
-    public mutating func removeLast() -> Element {
+    @discardableResult
+    public mutating func removeFirst() -> Element? {
+        guard elements.count > 0 else {
+            return nil
+        }
+        let element = elements.removeFirst()
+        set.remove(element)
+        return element
+    }
+    
+    @discardableResult
+    public mutating func removeLast() -> Element? {
+        guard elements.count > 0 else {
+            return nil
+        }
         let element = elements.removeLast()
         set.remove(element)
         return element
@@ -87,4 +108,3 @@ extension OrderedSet: RandomAccessCollection {
         return elements[index]
     }
 }
-
