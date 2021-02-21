@@ -108,3 +108,28 @@ extension OrderedSet: RandomAccessCollection {
         return elements[index]
     }
 }
+
+extension OrderedSet: Codable where Element: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case elements
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let decodedElements = try container.decode([Element].self, forKey: .elements)
+        elements = []
+        set = Set()
+        for element in decodedElements {
+            let (wasInserted, _) = set.insert(element)
+            if wasInserted {
+                elements.append(element)
+            }
+        }
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(elements, forKey: .elements)
+    }
+}
