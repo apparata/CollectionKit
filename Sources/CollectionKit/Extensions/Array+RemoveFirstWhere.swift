@@ -13,4 +13,12 @@ public extension Array {
         }
         return nil
     }
+    
+    @discardableResult
+    mutating func removeFirst<T: Equatable>(where keyPath: KeyPath<Element, T>, equals value: T) -> Element? {
+        if let index = firstIndex(where: { $0[keyPath: keyPath] == value }) {
+            return remove(at: index)
+        }
+        return nil
+    }
 }
