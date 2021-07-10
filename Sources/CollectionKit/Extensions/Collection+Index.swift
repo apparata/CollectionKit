@@ -37,6 +37,16 @@ public extension Collection where Index == Int {
 
 public extension Collection where Element: Equatable, Index == Int {
     
+    /// Example:
+    /// ```
+    /// func index(of cover: Cover) -> Int? {
+    ///     return covers.firstIndex(where: \.id, equals: cover.id)
+    /// }
+    /// ```
+    func firstIndex<T: Equatable>(where keyPath: KeyPath<Element, T>, equals value: T) -> Array<Element>.Index? {
+        return firstIndex(where: { $0[keyPath: keyPath] == value })
+    }
+    
     func firstIndex(of item: Element) -> Index? {
         for (index, value) in lazy.enumerated() {
             if value == item {
