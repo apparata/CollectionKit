@@ -49,7 +49,7 @@ public extension Sequence {
     
     func max<T: Comparable>(by keyPath: KeyPath<Element, T>) -> Element? {
         self.max(by: { a, b in
-            return a[keyPath: keyPath] > b[keyPath: keyPath]
+            return a[keyPath: keyPath] < b[keyPath: keyPath]
         })
     }
     
