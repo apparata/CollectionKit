@@ -13,18 +13,6 @@ public extension Sequence {
         }
     }
     
-    func map<T>(_ keyPath: KeyPath<Element, T>) -> [T] {
-        map { element in
-            element[keyPath: keyPath]
-        }
-    }
-
-    func compactMap<T>(_ keyPath: KeyPath<Element, T?>) -> [T] {
-        compactMap { element in
-            element[keyPath: keyPath]
-        }
-    }
-
     func sorted<T: Comparable>(by keyPath: KeyPath<Element, T>) -> [Element] {
         sorted { a, b in
             return a[keyPath: keyPath] < b[keyPath: keyPath]
