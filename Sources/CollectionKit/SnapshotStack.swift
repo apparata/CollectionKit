@@ -10,8 +10,10 @@ import Foundation
 ///
 public final class SnapshotStack<Snapshot> {
 
-    /// Maximum undo capacity of the stack. If a snapshot is added when the stack has reached
-    /// the maximum capactity, the snapshot element at the bottom of the stack will be removed.
+    /// Maximum undo capacity of the stack.
+    ///
+    /// If a snapshot is added when the stack has reached the maximum capactity, the snapshot element
+    /// at the bottom of the stack will be removed.
     public let maxUndoLevels: Int
 
     /// Returns `true` if there are snapshots below the current snapshot in the stack.
@@ -38,6 +40,7 @@ public final class SnapshotStack<Snapshot> {
     ///
     /// - Parameter initialSnapshot: The initial snapshot at the bottom of the stack.
     /// - Parameter maxUndoLevels: The maximum of undo levels in the stack.
+    ///
     public init(initialSnapshot: Snapshot, maxUndoLevels: UInt) {
         self.maxUndoLevels = Int(max(maxUndoLevels, 1))
         self.addSnapshot(initialSnapshot)
@@ -50,6 +53,7 @@ public final class SnapshotStack<Snapshot> {
     /// before the new snapshot is added.
     ///
     /// - Parameter snapshot: The snapshot to add to the top of the stack.
+    ///
     public func addSnapshot(_ snapshot: Snapshot) {
 
         if canRedo {
@@ -87,12 +91,12 @@ public final class SnapshotStack<Snapshot> {
     }
 }
 
-// If the snapshots in the undo stack are codable,
-// then the undo stack is codable.
+/// If the snapshots in the undo stack are codable,
+/// then the undo stack is codable.
 extension SnapshotStack: Codable where Snapshot: Codable { }
 
-// If the `Snapshot` type is `Equatable`, new snapshots will not be added
-// if they equate the current snapshot.
+/// If the `Snapshot` type is `Equatable`, new snapshots will not be added
+/// if they equate the current snapshot.
 extension SnapshotStack where Snapshot: Equatable {
 
     /// Add a snapshot to the top of the stack. If the snapshot is equal to the current snapshot
@@ -103,6 +107,7 @@ extension SnapshotStack where Snapshot: Equatable {
     /// before the new snapshot is added.
     ///
     /// - Parameter snapshot: The snapshot to add to the top of the stack.
+    ///
     public func addSnapshot(_ snapshot: Snapshot) {
 
         // Don't add snapshot if it is identical.
